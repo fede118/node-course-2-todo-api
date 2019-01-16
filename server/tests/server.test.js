@@ -204,7 +204,7 @@ describe('PATCH /todos/:id', () => {
 			.expect((res) => {
 				expect(res.body.todo.text).toBe(body.text);
 				expect(res.body.todo.completed).toBe(false);
-				expect(res.body.todo.completedAt).toBeNull();
+				expect(res.body.todo.completedAt).toBeFalsy();
 				done();
 			}).catch((e) => done(e));
 	});
@@ -292,7 +292,7 @@ describe('POST /userse/login', () => {
 				}
 
 				User.findById(users[1]._id).then((user) => {
-					expect(user.tokens[1]).toMatchObject({
+					expect(user.toObject().tokens[1]).toMatchObject({
 						access: 'auth',
 						token: res.headers['x-auth']
 					});
